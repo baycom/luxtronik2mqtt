@@ -6,7 +6,7 @@ const xml2js = require('xml2js');
 var parser = new xml2js.Parser();
 
 const optionDefinitions = [
-	{ name: 'path', alias: 'p', type: String, defaultValue: "192.168.0.20" },
+	{ name: 'path', alias: 'p', type: String, defaultValue: "172.16.0.29" },
 	{ name: 'id', alias: 'i', type: String, defaultValue: "luxtronik2" },
 	{ name: 'wait', alias: 'w', type: Number, defaultValue: 1000 },
   	{ name: 'debug', alias: 'd', type: Boolean, defaultValue: false },
@@ -19,7 +19,7 @@ console.log("MQTT host     : " + options.mqtthost);
 console.log("MQTT Client ID: " + options.id);
 
 function sendMqtt(data) {
-	MQTTclient.publish(options.id + "/" + options.path, JSON.stringify(data));
+	MQTTclient.publish(options.id + "/" + options.path, JSON.stringify(data), { retain: true });
 }
   
 var MQTTclient = mqtt.connect("mqtt://"+options.mqtthost,{clientId: options.id});
